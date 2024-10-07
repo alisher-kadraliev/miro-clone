@@ -16,7 +16,7 @@ interface BoardListProps {
 
 const BoardList = ({ orgId, query }: BoardListProps) => {
 
-    const data = useQuery(api.boards.get, { orgId })
+    const data = useQuery(api.boards.get, { orgId, ...query })
 
     if (data === undefined) {
         return (
@@ -80,7 +80,7 @@ const BoardList = ({ orgId, query }: BoardListProps) => {
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 my-8'>
                 <NewBoardBtn orgId={orgId} />
                 {data?.map((board) => (
-                    <BoardCard key={board._id} id={board._id} title={board.title} imageUrl={board.imageUrl} authorId={board.authorId} authorName={board.authorName} createdAt={board._creationTime} orgId={board.orgId} isFavorite={true} />
+                    <BoardCard key={board._id} id={board._id} title={board.title} imageUrl={board.imageUrl} authorId={board.authorId} authorName={board.authorName} createdAt={board._creationTime} orgId={board.orgId} isFavorite={board.isFavorite} />
                 ))}
             </div>
         </>
